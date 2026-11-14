@@ -24,7 +24,8 @@ fun DashboardScreen(
     onRunFullAudit: () -> Unit,
     onPickMediaToScan: () -> Unit,
     onPickFileToScan: () -> Unit,
-    onExportReport: () -> Unit
+    onExportReport: () -> Unit,
+    onClearResults: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -127,14 +128,29 @@ fun DashboardScreen(
             }
         }
 
-        // Findings Title
-        Text(
-            text = "Audit Findings (${findings.size})",
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
+        // Findings Title & Clear Row
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Audit Findings (${findings.size})",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
+            if (findings.isNotEmpty()) {
+                Button(
+                    onClick = onClearResults,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                    shape = RoundedCornerShape(6.dp)
+                ) {
+                    Text("Clear All", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                }
+            }
+        }
 
         // Findings List
         LazyColumn(

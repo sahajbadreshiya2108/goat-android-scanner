@@ -58,7 +58,12 @@ class MainActivity : ComponentActivity() {
                 onRunFullAudit = { runDeviceAudit() },
                 onPickMediaToScan = { pickPhotoLauncher.launch("image/*") },
                 onPickFileToScan = { pickDocLauncher.launch("*/*") },
-                onExportReport = { exportReport() }
+                onExportReport = { exportReport() },
+                onClearResults = {
+                    findingsState.clear()
+                    scoreState = 100
+                    Toast.makeText(this@MainActivity, "Results cleared!", Toast.LENGTH_SHORT).show()
+                }
             )
         }
     }
